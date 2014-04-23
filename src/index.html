@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="piccoleau" ng-controller="AppController">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title ng-bind="pageTitle"></title>
+
+    <!-- font awesome from BootstrapCDN -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+</head>
+<body>
+    <header>
+        <h1 class="title">Cours de piscine «&nbsp;Piccol'eau&nbsp;»<br />à Payerne</h1>
+        <nav class="container navbar-default">
+            <ul class="nav navbar-nav">
+                <li ui-sref-active="active">
+                    <a ui-sref="home">Accueil</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="info">Informations</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="contact">Contact</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main container" ui-view="main"></div>
+
+    <footer class="container">
+      <p class="text-right">&copy; <%= date %> Stéphanie Pythoud</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,85 @@
+/**
+ * This is the main application stylesheet. It should include or import all
+ * stylesheets used throughout the application as this is the only stylesheet in
+ * the Grunt configuration that is automatically processed.
+ */
+
+
+/**
+ * First, we include the Twitter Bootstrap LESS files. Only the ones used in the
+ * project should be imported as the rest are just wasting space.
+ */
+
+@import '../../vendor/bootstrap/less/mixins.less';
+@import '../../vendor/bootstrap/less/utilities.less';
+@import '../../vendor/bootstrap/less/scaffolding.less';
+@import '../../vendor/bootstrap/less/type.less';
+@import '../../vendor/bootstrap/less/grid.less';
+@import '../../vendor/bootstrap/less/navs.less';
+@import '../../vendor/bootstrap/less/forms.less';
+@import '../../vendor/bootstrap/less/navbar.less';
+@import '../../vendor/bootstrap/less/buttons.less';
+@import '../../vendor/bootstrap/less/button-groups.less';
+@import '../../vendor/bootstrap/less/dropdowns.less';
+@import '../../vendor/bootstrap/less/jumbotron.less';
+
+
+/**
+ * This is our main variables file. It in turn imports the `variables` file from
+ * Twitter Bootstrap. We must include it last so we can overwrite any variable
+ * definitions in our imported stylesheets.
+ */
+
+@import 'variables.less';
+
+
+/**
+ * Typography
+ */
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400);
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+body {
+	background: #edf1f1 url("images/background.png") repeat-x 0 top;
+}
+
+header .title {
+	color: #fff;
+	.text-center();
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.main.container {
+	background-color: #fff;
+	color: @brand-primary;
+	padding: 20px;
+}
+
+/**
+ * Footer
+ */
+footer.container {
+	background-color: @navbar-default-bg;
+	color: #fff;
+	padding: 10px;
+	p {
+		margin: 0;
+	}
+}
+
+form .ng-invalid {
+	.has-error();
+}
+
+
+/**
+ * Now that all app-wide styles have been applied, we can load the styles for
+ * all the submodules and components we are using. 
+ *
+ * TODO: In a later version of this boilerplate, I'd like to automate this.
+ */
+
+//@import '../app/home/home.less';
+
