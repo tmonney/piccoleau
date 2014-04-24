@@ -1,58 +1,56 @@
 #!/bin/bash
 
-exit_trap () {
-  local lc="$BASH_COMMAND" rc=$?
-  exec 1>&5 2>&6
-  echo ""
-  echo "Deployment failed at command [$lc] with exit code [$rc]"
-  echo "See deploy.log for details"
+WWW_DIR=/var/www/piccoleau.ch/
+LOG_DIR=/var/log/apache2/piccoleau.ch/
+SITE_DIR=/etc/apache2/sites-available/
+DEPLOY_LOG=deploy.log
+
+red=`tput setaf 1`
+green=`tput setaf 2`
+normal=`tput sgr0`
+
+[[ -f $DEPLOY_LOG ]] && rm $DEPLOY_LOG
+
+print_status() {
+	msg="$1..."
+	status="[$2]"
+	color="$3"
+	let col=$(tput cols)-${#msg}+${#color}+${#normal}-1
+	printf "%${col}s\n" "$color$status$normal"
 }
 
-trap exit_trap ERR
-set -e
+step() {
+	cmd=$1
+	msg=$2
 
-if [[ "$UID" -ne "0" ]]; then
-	echo "Please run this script as administrator."
-	exit 1
-fi
-
-WWW_DIR=/var/www/piccoleau.ch
-LOG_DIR=/var/log/apache2/piccoleau.ch
-
-echo "Deploying web site to $WWW_DIR"
-
-{
-	echo -n "Cleaning working directory..." >&5
-	su -c "git pull && git reset --hard && git clean -fdx" tmonney
-	echo "done" >&5
-
-	echo -n "Cleaning build directory..." >&5
-	grunt clean
-	echo "done" >&5
+	echo -n "$msg..."
+	$cmd >> $DEPLOY_LOG 2>&1
+	exit_code=$?
+	if [[ "$exit_code" -eq "0" ]]; then
+		print_status "$msg" "OK" "$green"
+	else
+		print_status "$msg" "FAILED" "$red"
+		echo ""
+		echo "Deployment failed at command [$cmd] with exit code [$exit_code]"
+		echo "See deploy.log for details"
+		exit 1
+	fi
 	
-	echo -n "Building site..." >&5
-	grunt
-	echo "done" >&5
+}
 
-	echo -n "Preparing target directories..." >&5
-	mkdir -p $WWW_DIR
-	mkdir -p $LOG_DIR
-	echo "done" >&5
+# Ask the password at the beginning
+sudo true
 
-	echo -n "Copying files to target directory" >&5
-	cp -R bin/* $WWW_DIR
-	chown -R www-data:www-data $WWW_DIR
-	echo "done" >&5
-
-	echo -n "Configuring Apache virtual host" >&5
-	cp apache/piccoleau.ch.conf /etc/apache2/sites-available/
-	a2ensite piccoleau.ch.conf
-	echo "done" >&5
-
-	echo -n "Reload Apache configuration" >&5
-	service apache2 reload
-	echo "done" >&5
-
-} 5>&1 6>&2 1>deploy.log 2>&1
+step 'git pull'										"Getting web site latest version"
+step 'npm install'									"Preparing build environment"
+step 'bower install'								"Getting build dependencies"
+step 'grunt clean'									"Cleaning build directory"
+step 'grunt'										"Building site"
+step "sudo mkdir -p $WWW_DIR $LOG_DIR"				"Preparing target directories"
+step "sudo cp -R bin/* $WWW_DIR"					"Copying files to target directory"
+step "sudo chown -R www-data:www-data $WWW_DIR"		"Fixing permissions"
+step "sudo cp apache/piccoleau.ch.conf $SITE_DIR"	"Copying virtual host configuration"
+step 'sudo a2ensite piccoleau.ch.conf'				"Enabling virtual host"
+step 'sudo service apache2 reload'					"Reloading Apache configuration"
 
 echo "Successfully deployed web site to $WWW_DIR"
