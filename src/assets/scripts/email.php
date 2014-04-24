@@ -1,10 +1,11 @@
 <?php
- $to = "steph.pythoud@bluewin.ch";
- $subject = "Contact sur piccoleau.ch";
- $message = $_POST['message'];
- $headers = "MIME-Version: 1.0" . "\r\n";
- $headers .= "Content-type:text/plain;charset=utf-8" . "\r\n";
- $headers .= "From: " . $_POST['name'] . '<' . $_POST['email']  ">\r\n";
+	$to = "steph.pythoud@bluewin.ch";
+	$subject = "Contact sur piccoleau.ch";
+	$data = json_decode(file_get_contents('php://input'), true);
+	$message = data['message'];
+	$headers = "MIME-Version: 1.0" . "\r\n";
+	$headers .= "Content-type:text/plain;charset=utf-8" . "\r\n";
+	$headers .= "From: " . $data['name'] . '<' . $data['email'] . ">\r\n";
 
- mail($to, $subject, $message, $headers);
+	mail($to, $subject, $message, $headers);
 ?>
