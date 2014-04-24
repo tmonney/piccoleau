@@ -1,16 +1,4 @@
-(function(app) {
-
-    app.config(function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/home');
-    });
-
-    app.run(function () {});
-
-    app.controller('AppController', function ($scope) {
-
-    });
-
-}(angular.module("piccoleau", [
+angular.module("piccoleau", [
     'piccoleau.home',
     'piccoleau.info',
     'piccoleau.contact',
@@ -18,4 +6,16 @@
     'templates-common',
     'ui.router.state',
     'ui.router',
-])));
+])
+
+.config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/home');
+})
+
+.run(function () {})
+
+.controller('AppController', function ($scope) {
+
+})
+
+;

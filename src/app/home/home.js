@@ -9,27 +9,26 @@
  * Regardless, so long as dependencies are managed correctly, the build process
  * will automatically take take of the rest.
  */
-(function(app) {
-
-    app.config(function ($stateProvider) {
-        $stateProvider.state('home', {
-            url: '/home',
-            views: {
-                "main": {
-                    //controller: 'HomeController',
-                    templateUrl: 'home/home.tpl.html'
-                }
-            },
-            data:{ pageTitle: 'Accueil' }
-        });
-    });
-
-    // As you add controllers to a module and they grow in size, feel free to place them in their own files.
-    //  Let each module grow organically, adding appropriate organization and sub-folders as needed.
-    //app.controller('HomeController', function ($scope) {
-    //});
-
-// The name of the module, followed by its dependencies (at the bottom to facilitate enclosure)
-}(angular.module("piccoleau.home", [
+angular.module("piccoleau.home", [
     'ui.router'
-])));
+])
+
+.config(function ($stateProvider) {
+    $stateProvider.state('home', {
+        url: '/home',
+        views: {
+            "main": {
+                //controller: 'HomeController',
+                templateUrl: 'home/home.tpl.html'
+            }
+        },
+        data:{ pageTitle: 'Accueil' }
+    });
+})
+
+// As you add controllers to a module and they grow in size, feel free to place them in their own files.
+//  Let each module grow organically, adding appropriate organization and sub-folders as needed.
+//.controller('HomeController', function ($scope) {
+//})
+
+;
