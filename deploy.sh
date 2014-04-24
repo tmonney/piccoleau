@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-if [[ "$UID" -neq "0" ]]; then
+if [[ "$UID" -ne "0" ]]; then
 	echo "Please run this script as administrator."
 	exit 1
 fi
