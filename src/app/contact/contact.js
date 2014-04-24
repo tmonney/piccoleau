@@ -15,13 +15,21 @@ angular.module("piccoleau.contact", [
     });
 })
 
-.controller('ContactCtrl', function($scope) {
+.controller('ContactCtrl', function($scope, $http) {
     $scope.name = "";
     $scope.email = "";
     $scope.message = "";
 
     $scope.sendMessage = function(valid) {
-        alert('Form was valid? ' + valid);
+        $http.post('assets/scripts/email.php', {
+            'name': $scope.name,
+            'email': $scope.email,
+            'message': $scope.message
+        }).success(function (data, status, headers, config) {
+            alert('Success, status is ' + status);
+        }).error(function (data, status, headers, config) {
+            alert('Error, status is ' + status);
+        });
     };
 })
 
