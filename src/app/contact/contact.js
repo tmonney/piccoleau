@@ -16,21 +16,38 @@ angular.module("piccoleau.contact", [
 })
 
 .controller('ContactCtrl', function($scope, $http) {
-    $scope.name = "";
-    $scope.email = "";
-    $scope.message = "";
+    
+    var clear = function() {
+        $scope.name = "";
+        $scope.email = "";
+        $scope.message = "";
+    };
 
-    $scope.sendMessage = function(valid) {
+    var messageSent = function(form) {
+        clear();
+        $scope.status = 'sent';
+        form.$setPristine();
+    };
+
+    var messageNotSent = function() {
+        $scope.status = 'error';
+    };
+
+    $scope.sendMessage = function(form) {
         $http.post('assets/scripts/email.php', {
             'name': $scope.name,
             'email': $scope.email,
             'message': $scope.message
         }).success(function (data, status, headers, config) {
-            alert('Success, status is ' + status);
+            messageSent(form);
         }).error(function (data, status, headers, config) {
-            alert('Error, status is ' + status);
+            messageNotSent();
         });
     };
+
+    $scope.status = 'unsent';
+
+    clear();
 })
 
 ;

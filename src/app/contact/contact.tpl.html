@@ -1,14 +1,23 @@
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-7">
     <header>
-      <h3>Ce cours vous intéresse ? Contactez-moi !</h3>
+      <h2>Ce cours vous intéresse&nbsp;? Contactez-moi&nbsp;!</h2>
     </header>
-    <form name="contactForm" role="form" novalidate ng-submit="sendMessage(contactForm.$valid)">
+
+    <div class="alert alert-success" ng-show="status == 'sent'">
+      Votre message a bien été envoyé. Je prendrai contact avec vous rapidement. Merci&nbsp;!
+    </div>
+
+    <div class="alert alert-danger" ng-show="status == 'error'">
+      Votre message n'a pas pu être envoyé suite à une erreur inattendue. Merci de réessayer plus tard.
+    </div>
+
+    <form name="contactForm" role="form" novalidate ng-submit="sendMessage(contactForm)">
       <div class="form-group" ng-class="{'has-error': contactForm.name.$invalid && !contactForm.name.$pristine}">
         <label for="name">Nom</label>
         <div class="row">
           <div class="col-md-6">
-            <input type="text" class="form-control" name="name" placeholder="Nom" required ng-model="name">
+            <input type="text" class="form-control" name="name" placeholder="Nom" required ng-model="name" autofocus>
             <p ng-show="contactForm.name.$invalid && !contactForm.name.$pristine" class="help-block">Le nom est obligatoire</p>
           </div>
         </div>
@@ -31,11 +40,11 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary" ng-disabled="contactForm.$invalid">Envoyer le message</button>
+      <button type="submit" class="btn btn-primary" ng-disabled="contactForm.$invalid || status == 'sent'">Envoyer le message</button>
     </form>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-5">
     <h2>Coordonnées</h2>
     <h3>Piccol'eau</h3>
     <address>
