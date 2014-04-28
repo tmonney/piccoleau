@@ -1,70 +1,42 @@
-<div class="row">
-  <div class="col-md-7">
-    <header>
-      <h2>Ce cours vous intéresse&nbsp;? Contactez-moi&nbsp;!</h2>
-    </header>
+<header>
+  <h2>Ce cours vous intéresse&nbsp;? Contactez-moi&nbsp;!</h2>
+</header>
 
-    <div class="alert alert-success" ng-show="status == 'sent'">
-      Votre message a bien été envoyé. Je prendrai contact avec vous rapidement. Merci&nbsp;!
-    </div>
-
-    <div class="alert alert-danger" ng-show="status == 'error'">
-      Votre message n'a pas pu être envoyé suite à une erreur inattendue. Merci de réessayer plus tard.
-    </div>
-
-    <form name="contactForm" role="form" novalidate ng-submit="sendMessage(contactForm)">
-      <div class="form-group" ng-class="{'has-error': contactForm.name.$invalid && !contactForm.name.$pristine}">
-        <label for="name">Nom</label>
-        <div class="row">
-          <div class="col-md-6">
-            <input type="text" class="form-control" name="name" placeholder="Nom" required ng-model="name" autofocus>
-            <p ng-show="contactForm.name.$invalid && !contactForm.name.$pristine" class="help-block">Le nom est obligatoire</p>
-          </div>
-        </div>
-      </div>
-      <div class="form-group" ng-class="{'has-error': contactForm.email.$invalid && !contactForm.email.$pristine}">
-        <label for="email">Adresse e-mail</label>
-        <div class="row">
-          <div class="col-md-6">
-            <input type="email" class="form-control" name="email" placeholder="Adresse e-mail" required ng-model="email">
-            <p ng-show="contactForm.email.$invalid && !contactForm.email.$pristine" class="help-block">Ce champ est obligatoire et doit être une adresse e-mail valide</p>
-          </div>
-        </div>
-      </div>
-      <div class="form-group" ng-class="{'has-error': contactForm.message.$invalid && !contactForm.message.$pristine}">
-        <label for="message">Message</label>
-        <div class="row">
-          <div class="col-md-8">
-            <textarea class="form-control" name="message" rows="5" required ng-model="message"></textarea>
-            <p ng-show="contactForm.message.$invalid && !contactForm.message.$pristine" class="help-block">Ce champ est obligatoire</p>
-          </div>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary" ng-disabled="contactForm.$invalid">Envoyer le message</button>
-    </form>
-  </div>
-
-  <div class="col-md-5">
-    <h2>Coordonnées</h2>
-    <h3>Piccol'eau</h3>
-    <address>
-      <strong>Stéphanie Pythoud</strong><br />
-      Animatrice <a href="http://www.swimsports.ch/fr/kurse/kategorien/1/">aqua-baby.ch</a> (dès 2005)<br />
-      Animatrice <a href="http://www.swimsports.ch/fr/kurse/kategorien/2/">aqua-family.ch</a> (dès 2006)<br />
-      Maîtresse de stage ENFEAU (dès 2008)<br />
-      Formations suivies auprès de <a href="http://swimsports.ch/fr/home">swimsports.ch</a><br />
-      <br />
-      <div class="clearfix">
-        <div class="pull-left"><strong>Téléphone&nbsp;:&nbsp;</strong></div>
-        <div class="pull-left">
-          079/742.25.54<br />
-          026/663.31.36
-        </div>
-      </div>
-      <div class="clearfix">
-        <div class="pull-left"><strong>E-mail&nbsp;:&nbsp;</strong></div>
-        <div class="pull-left"><a href="mailto:steph.pythoud@bluewin.ch">steph.pythoud@bluewin.ch</a></div>
-      </div>
-    </address>
-  </div>
+<div class="alert alert-success" ng-show="status == 'sent'">
+  Votre message a bien été envoyé. Je prendrai contact avec vous rapidement. Merci&nbsp;!
 </div>
+
+<div class="alert alert-danger" ng-show="status == 'error'">
+  Votre message n'a pas pu être envoyé suite à une erreur inattendue. Merci de réessayer plus tard.
+</div>
+
+<form name="contactForm" role="form" novalidate ng-submit="sendMessage(contactForm)">
+  <div class="form-group" ng-class="{'has-error': contactForm.name.$invalid && !contactForm.name.$pristine}">
+    <label for="name">Nom</label>
+    <div class="row">
+      <div class="col-md-6">
+        <input type="text" class="form-control" name="name" placeholder="Nom" required ng-model="name" autofocus>
+        <p ng-show="contactForm.name.$invalid && !contactForm.name.$pristine" class="help-block">Le nom est obligatoire</p>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" ng-class="{'has-error': contactForm.email.$invalid && !contactForm.email.$pristine}">
+    <label for="email">Adresse e-mail</label>
+    <div class="row">
+      <div class="col-md-6">
+        <input type="email" class="form-control" name="email" placeholder="Adresse e-mail" required ng-model="email">
+        <p ng-show="contactForm.email.$invalid && !contactForm.email.$pristine" class="help-block">Ce champ est obligatoire et doit être une adresse e-mail valide</p>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" ng-class="{'has-error': contactForm.message.$invalid && !contactForm.message.$pristine}">
+    <label for="message">Message</label>
+    <div class="row">
+      <div class="col-md-8">
+        <textarea class="form-control" name="message" rows="5" required ng-model="message"></textarea>
+        <p ng-show="contactForm.message.$invalid && !contactForm.message.$pristine" class="help-block">Ce champ est obligatoire</p>
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" ng-disabled="contactForm.$invalid">Envoyer le message</button>
+</form>
