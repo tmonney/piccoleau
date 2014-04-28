@@ -14,10 +14,14 @@ angular.module("piccoleau", [
     $urlRouterProvider.otherwise('/home');
 })
 
-.run(function () {})
-
-.controller('AppController', function ($scope) {
-
+.controller('AppController', function ($scope, $state) {
+    $scope.pageTitle = function() {
+        if($state.current.data) {
+            return "Piccol'eau - " + $state.current.data.pageTitle;
+        } else {
+            return "Piccol'eau";
+        }
+    };
 })
 
 ;

@@ -10,7 +10,7 @@ angular.module("piccoleau.about", [
                 templateUrl: 'about/about.tpl.html'
             }
         },
-        data:{ pageTitle: 'About' }
+        data:{ pageTitle: 'Coordonnées' }
     });
 })
 

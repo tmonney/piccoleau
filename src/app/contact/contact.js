@@ -11,11 +11,11 @@ angular.module("piccoleau.contact", [
                 templateUrl: 'contact/contact.tpl.html'
             }
         },
-        data:{ pageTitle: 'contact' }
+        data:{ pageTitle: 'Contact' }
     });
 })
 
-.controller('ContactCtrl', function($scope, $http) {
+.controller('ContactCtrl', function($scope, $http, $state) {
     
     var clear = function() {
         $scope.name = "";

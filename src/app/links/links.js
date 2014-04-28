@@ -10,7 +10,7 @@ angular.module("piccoleau.links", [
                 templateUrl: 'links/links.tpl.html'
             }
         },
-        data:{ pageTitle: 'Links' }
+        data:{ pageTitle: 'Liens' }
     });
 })
 
