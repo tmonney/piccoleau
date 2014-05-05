@@ -1,6 +1,6 @@
 #!/bin/bash
 
-phantomjs --disk-cache=no vendor/angular-seo/angular-seo-server.js 8888 http://localhost:80/ &
+phantomjs --disk-cache=no vendor/angular-seo/angular-seo-server.js 8888 file:///home/tmo/projects/piccoleau/bin/index.html &
 PID=$!
 
 sleep 2
