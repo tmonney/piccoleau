@@ -8,13 +8,22 @@ angular.module("piccoleau", [
     'templates-common',
     'ui.router.state',
     'ui.router',
+    'seo'
 ])
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/home');
+    $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix('!');
 })
 
 .controller('AppController', function ($scope, $state) {
+    
+    $scope.$on('$viewContentLoaded',function(event, viewConfig) {
+        $scope.htmlReady();
+    });
+
+
     $scope.pageTitle = function() {
         if($state.current.data) {
             return "Piccol'eau - " + $state.current.data.pageTitle;
