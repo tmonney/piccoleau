@@ -3,6 +3,6 @@
 apt-get update -y && apt-get upgrade -y
 apt-get install -y software-properties-common
 apt-add-repository ppa:chris-lea/node.js
-apt-get update -y && apt-get install -y nodejs git phantomjs
+apt-get update -y && apt-get install -y nodejs git phantomjs nginx php5-fpm
 npm install -g grunt-cli karma bower
 npm install

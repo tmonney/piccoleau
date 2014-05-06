@@ -1,8 +1,9 @@
 #!/bin/bash
 
 WWW_DIR=/var/www/piccoleau.ch/
-LOG_DIR=/var/log/apache2/piccoleau.ch/
-SITE_DIR=/etc/apache2/sites-available/
+LOG_DIR=/var/log/nginx/piccoleau.ch/
+AV_SITE_DIR=/etc/nginx/sites-available/
+EN_SITE_DIR=/etc/nginx/sites-enabled/
 DEPLOY_LOG=deploy.log
 
 red=`tput setaf 1`
@@ -41,17 +42,17 @@ step() {
 # Ask the password at the beginning
 sudo true
 
-step 'git pull'										"Getting web site latest version"
-step 'npm install'									"Preparing build environment"
-step 'bower install'								"Getting build dependencies"
-step 'grunt clean'									"Cleaning build directory"
-step 'grunt'										"Building site"
-step './snapshots.sh'								"Generating HTML snapshots for search engines"
-step "sudo mkdir -p $WWW_DIR $LOG_DIR"				"Preparing target directories"
-step "sudo cp -R bin/* $WWW_DIR"					"Copying files to target directory"
-step "sudo chown -R www-data:www-data $WWW_DIR"		"Fixing permissions"
-step "sudo cp apache/piccoleau.ch.conf $SITE_DIR"	"Copying virtual host configuration"
-step 'sudo a2ensite piccoleau.ch.conf'				"Enabling virtual host"
-step 'sudo service apache2 reload'					"Reloading Apache configuration"
+step 'git pull'                                           "Getting web site latest version"
+step 'npm install'                                        "Preparing build environment"
+step 'bower install'                                      "Getting build dependencies"
+step 'grunt clean'                                        "Cleaning build directory"
+step 'grunt'                                              "Building site"
+step './snapshots.sh'                                     "Generating HTML snapshots for search engines"
+step "sudo mkdir -p $WWW_DIR $LOG_DIR"                    "Preparing target directories"
+step "sudo cp -R bin/* $WWW_DIR"                          "Copying files to target directory"
+step "sudo chown -R www-data:www-data $WWW_DIR"           "Fixing permissions"
+step "sudo cp nginx/piccoleau.ch $AV_SITE_DIR"            "Copying virtual host configuration"
+step "sudo ln -sf $AV_SITE_DIR/piccoleau.ch $EN_SITE_DIR" "Enabling virtual host"
+step 'sudo service nginx reload'                          "Reloading Nginx configuration"
 
 echo "Successfully deployed web site to $WWW_DIR"
