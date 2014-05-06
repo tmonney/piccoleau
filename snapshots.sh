@@ -1,6 +1,6 @@
 #!/bin/bash
 
-phantomjs --disk-cache=no vendor/angular-seo/angular-seo-server.js 8888 "file://$(pwd)/bin/index.html" &
+phantomjs --disk-cache=no seo-server.js 8888 "file://$(pwd)/bin/index.html" &
 PID=$!
 
 sleep 2
@@ -11,9 +11,8 @@ SNAPSHOTS=bin/snapshots
 mkdir -p $SNAPSHOTS
 
 for page in $(cat src/assets/sitemap.txt); do
-	echo "Processing page $page"
-	path=$(python -c "from urlparse import urlparse; print(urlparse('$page').path)")
-
+	path=$(python -c "from urlparse import urlparse; print(urlparse('$page').fragment[1:])")
+	echo "Processing path $path"
 	curl --silent "http://localhost:8888/?_escaped_fragment_=$path" > "$SNAPSHOTS$path.html"
 done
 
