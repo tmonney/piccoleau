@@ -10,9 +10,11 @@ server {
 	rewrite_log on;
 
 	location = / {
-		if ($query_string ~* "^_escaped_fragment_=/?(.*)$") {
+		if ($query_string ~* "^_escaped_fragment_=/?$") {
+			rewrite ^.*$ /snapshots/home.html last;
+		}
+		if ($query_string ~* "^_escaped_fragment_=/(.+)$") {
 			set $p $1;
-			set $args "";
 			rewrite ^.*$ /snapshots/$p.html last;
 		}
 	}
